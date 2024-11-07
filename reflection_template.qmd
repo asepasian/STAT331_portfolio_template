@@ -1,5 +1,5 @@
 ---
-title: "STAT 331 Portfolio"
+title: "STAT 331 Midterm Portfolio"
 author: "Amir Sepasian"
 format: 
   html: 
