@@ -24,9 +24,10 @@ execute:
 ```{r}
 #| label: wd-1-csv
 
-# Practice Assignment 3
 
-colleges <- read_csv("https://www.dropbox.com/s/bt5hvctdevhbq6j/colleges.csv?dl=1")
+# Lab 2 Question 2
+
+teacher <- read_csv(here::here("data", "teacher_evals.csv"))
 
 ```
 
@@ -50,7 +51,9 @@ military <- read_xlsx(here::here("data",
 ```{r}
 #| label: wd-1-txt
 
-# Will implement in Final 
+# Check-in 2.3: Importing Data Question 3
+
+ages_tab <- read.table(file = here::here("Week 2", "Check-ins", "Ages_Data", "ages_tab.txt"))
 
 ```
 
@@ -65,16 +68,16 @@ teacher_evals_clean <- teacher |>
   rename("sex" = "gender") |>
   filter(no_participants > 10) |>
   mutate(teacher_id = as.character(teacher_id)) |>
-  select('course_id', 
-         'teacher_id', 
-         'question_no', 
-         'no_participants', 
-         'resp_share',    
-         'SET_score_avg', 
-         'percent_failed_cur', 
-         'academic_degree', 
-         'seniority', 
-         'sex')
+  select(course_id, 
+         teacher_id, 
+         question_no, 
+         no_participants, 
+         resp_share,    
+         SET_score_avg, 
+         percent_failed_cur, 
+         academic_degree, 
+         seniority, 
+         sex)
 
 ```
 
@@ -98,69 +101,6 @@ teacher_evals_clean |>
 
 ```{r}
 #| label: wd-3-string
-
-# Lab 4 Question 2
-
-ca_childcare <- childcare_costs |>
-  left_join(counties, by = join_by(county_fips_code == county_fips_code)) |>
-  filter(state_name == "California")
-
-
-```
-
--   factor
-
-```{r}
-#| label: wd-3-factor
-
-# Lab 4 Question 3 
-
-ca_childcare <- ca_childcare |> 
-  mutate(Region = fct_collapse(.f = county_name, 
-                               
-                               "Superior California" = c("Butte County", "Colusa County", 
-                                                         "El Dorado County","Glenn County", 
-                                                         "Lassen County", "Modoc County", 
-                                                         "Nevada County", "Placer County", 
-                                                         "Plumas County", "Sacramento County", 
-                                                         "Shasta County", "Sierra County", 
-                                                         "Siskiyou County", "Sutter County", 
-                                                         "Tehama County", "Yolo County", 
-                                                         "Yuba County"), 
-                               "North Coast" = c("Del Norte County", "Humboldt County", 
-                                                 "Lake County", "Mendocino County", 
-                                                 "Napa County", "Sonoma County", 
-                                                 "Trinity County"),
-                               "San Francisco Bay Area" = c("Alameda County", "Contra Costa County", 
-                                                            "Marin County", "San Francisco County",
-                                                            "San Mateo County", "Santa Clara County", 
-                                                            "Solano County"),
-                               "Northen San Joaquin Valley" = c("Alpine County", "Amador County", 
-                                                                "Calaveras County", "Madera County", 
-                                                                "Mariposa County", "Merced County", 
-                                                                "Mono County", "San Joaquin County", 
-                                                                "Stanislaus County", "Tuolumne County"),
-                               "Central Coast" = c("Monterey County", "San Benito County", 
-                                                   "San Luis Obispo County", "Santa Barbara County", 
-                                                   "Santa Cruz County", "Ventura County"),
-                               "Southern San Joaquin Valley" = c("Fresno County", "Inyo County", 
-                                                                 "Kern County", "Kings County", 
-                                                                 "Tulare County"),
-                               "Inland Empire" = c("Riverside County", "San Bernardino County"),
-                               "LA County" = c("Los Angeles County"),
-                               "Orange County" = c("Orange County"),
-                               "San Diego-Imperial" =c("Imperial County", "San Diego County")
-              
-                               ),
-         .after = county_fips_code
-         )
-
-```
-
--   date (example must use functions from **lubridate**)
-
-```{r}
-#| label: wd-3-date
 
 # Lab 5
 # Finding the interview of initial suspect
@@ -213,6 +153,26 @@ get_fit_now_check_in |>
          str_detect(plate_number, 
                     '.H42W')
          ) 
+
+```
+
+-   factor
+
+```{r}
+#| label: wd-3-factor
+
+# Lab 4 Question 2
+
+ca_childcare <- childcare_costs |>
+  left_join(counties, by = join_by(county_fips_code == county_fips_code)) |>
+  filter(state_name == "California")
+
+```
+
+-   date (example must use functions from **lubridate**)
+
+```{r}
+#| label: wd-3-date
 
 
 ```
@@ -243,57 +203,53 @@ teacher_evals_compare <- teacher |>
 ```{r}
 #| label: wd-4-string
 
-# Lab 5
-# Finding the interview of initial suspect
+# Lab 4 Question 6
 
-crime_scene_report |>
-  mutate(date = ymd(date)) |>
-  filter(date == '2018-01-15',
-         type == 'murder',
-         city == 'SQL City') |>
-  pull(description)
-
-
-witness1 <- person |>
-  filter(address_street_name == 'Northwestern Dr', 
-         address_number == max(address_number)) |>
-  left_join(interview, 
-             by = join_by(id == person_id)) |>
-  pull(transcript)|>
-  print()
-
-
-witness2 <- person |>
-  filter(address_street_name == 'Franklin Ave', 
-         str_detect(name, 'Annabel')) |>
-  left_join(interview, 
-             by = join_by(id == person_id)) |>
-  pull(transcript) |>
-  print()
-
-
-
-get_fit_now_check_in |>
+ca_childcare |>
   
-  full_join(get_fit_now_member, 
-             by = join_by(membership_id == id)) |>
+  pivot_longer(mc_infant:mc_preschool,
+               names_to = "Child Category",
+               values_to = "Median Price") |>
   
-  inner_join(person, 
-             by = join_by(person_id == id,
-                          name == name)) |>
-  inner_join(interview,
-             by = join_by(person_id == person_id)) |>
+  select(Region, 
+         study_year, 
+         `Child Category`, 
+         `Median Price`) |>
   
-  inner_join(drivers_license,
-             by = join_by(license_id == id)) |>
-
-
-  filter(membership_status == 'gold',
-         str_detect(membership_id, 
-                    '^48Z'),
-         str_detect(plate_number, 
-                    '.H42W')
-         ) 
+  mutate(`Child Category` = fct_recode(.f = `Child Category`,
+                    "Infant" = "mc_infant",
+                    "Toddler" = "mc_toddler",
+                    "Preschool" = "mc_preschool"),
+         
+         `Child Category` = fct_relevel(`Child Category`,
+                                        "Infant", 
+                                        "Toddler", 
+                                        "Preschool")
+         ) |>
+  
+  ggplot(aes(x = study_year, 
+             y = `Median Price`, 
+             color = fct_reorder2(.f = Region, 
+                                  .x = study_year, 
+                                  .y = `Median Price`)
+             )
+         ) +
+  
+  geom_point() +
+  geom_smooth(aes(colour = factor(Region), 
+                  method = "loess")) +
+  
+  facet_wrap(~ `Child Category`) +
+  scale_x_continuous(breaks = seq(2008, 2018, by = 2)) +
+  scale_y_continuous(breaks = seq(100, 700, by = 100), 
+                     limits = c(100, 500)) +
+  labs(x = "Study Year",
+       y = "",
+       title = "Weekly Median Price for Center-Based Childcare ($)",
+       color = "California Region") +
+  scale_color_manual(values = colorRampPalette(brewer.pal(8, 'Accent'))(10)) +
+  theme(aspect.ratio = 1) +
+  theme_bw() 
 
 ```
 
@@ -590,7 +546,8 @@ ca_childcare |>
                names_to = "Child Category",
                values_to = "Median Price") |>
   
-  select(Region, study_year, 
+  select(Region, 
+         study_year, 
          `Child Category`, 
          `Median Price`) |>
   
@@ -625,9 +582,9 @@ ca_childcare |>
        y = "",
        title = "Weekly Median Price for Center-Based Childcare ($)",
        color = "California Region") +
-  scale_color_brewer(palette = "Accent") +
+  scale_color_manual(values = colorRampPalette(brewer.pal(8, 'Accent'))(10)) +
+  theme(aspect.ratio = 1) +
   theme_bw() 
-
 
 ```
 
@@ -636,17 +593,17 @@ ca_childcare |>
 ```{r}
 #| label: wd-7-wide
 
-# Lab 4 Question 5
+# Lab 4 Question 4
 
 ca_childcare |>
   group_by(Region, study_year) |>
-  summarise(median_inf_cost = median(mc_infant)) |>
-  pivot_wider(names_from = study_year,
-              values_from = median_inf_cost) |>
-  select(Region, `2008`, `2018`) |>
-  arrange(desc(`2018`)) |>
+  summarise(median_income = median(mhi_2018)) |>
   ungroup() |>
-  slice_min(`2018`)
+  pivot_wider(names_from = study_year,
+              values_from = median_income,
+              names_prefix = "Median Household Income ") |>
+  arrange(desc(`Median Household Income 2018`)) |>
+  select(Region, `Median Household Income 2008`, `Median Household Income 2018`)
 
 ```
 
@@ -654,7 +611,7 @@ ca_childcare |>
 
 **R-1: I can create professional looking, reproducible analyses using RStudio projects, Quarto documents, and the here package.**
 
-I've done this in the following provided assignments:
+I've done this in the following provided assignments: Lab 2, Challenge 2, Lab
 
 **R-2: I can write well documented and tidy code.**
 
@@ -761,13 +718,13 @@ ggplot(ca_childcare, mapping = aes(x = mhi_2018, y = mc_infant)) +
 #| label: dvs-2-num-cat
 
 # Lab 2 Question 16
+# Reader will not tilt their head since species is in the y-axis
 
 ggplot(data = surveys, 
        mapping = aes(y = species, x = weight)
        ) +
   geom_jitter(colour = "orange3", alpha = 0.6) +
   geom_boxplot(outliers = FALSE) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(title = "Rodent Weights by Different Species",
        x = "Weight (grams)",
        y = '',
@@ -796,39 +753,6 @@ ggplot(data = surveys,
 
 ```{r}
 #| label: dvs-2-date
-
-# Will implement in Final 
-
-```
-
-**DVS-2: I use plot modifications to make my visualization clear to the reader.**
-
--   I can ensure people don't tilt their head
-
-```{r}
-#| label: dvs-2-1
-
-# Lab 2 Question 15
-
-library(ggridges)
-
-ggplot(data = surveys, 
-       mapping = aes(x = species, y = weight)
-       ) +
-  geom_jitter(colour = "orange3", alpha = 0.6) +
-  geom_boxplot(outliers = FALSE) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  labs(title = "Rodent Weights by Different Species",
-       x = "Species",
-       y = '',
-       subtitle = "Weight (grams)")
-
-```
-
--   I can modify the text in my plot to be more readable
-
-```{r}
-#| label: dvs-2-2
 
 # Lab 4 Question 6
 
@@ -874,9 +798,64 @@ ca_childcare |>
        y = "",
        title = "Weekly Median Price for Center-Based Childcare ($)",
        color = "California Region") +
-  scale_color_brewer(palette = "Accent") +
+  scale_color_manual(values = colorRampPalette(brewer.pal(8, 'Accent'))(10)) +
   theme(aspect.ratio = 1) +
   theme_bw() 
+
+```
+
+**DVS-2: I use plot modifications to make my visualization clear to the reader.**
+
+-   I can ensure people don't tilt their head
+
+```{r}
+#| label: dvs-2-1
+
+# Lab 2 Question 16
+# This code places species on the y-axis so readers no longer tilt their head
+
+#| label: boxplot
+
+
+ggplot(data = surveys, 
+       mapping = aes(y = species, x = weight)
+       ) +
+  geom_jitter(colour = "orange3", alpha = 0.6) +
+  geom_boxplot(outliers = FALSE) +
+  labs(title = "Rodent Weights by Different Species",
+       x = "Weight (grams)",
+       y = '',
+       subtitle = "Sepcies")
+```
+
+-   I can modify the text in my plot to be more readable
+
+```{r}
+#| label: dvs-2-2
+
+# Lab 9 Question 2
+
+babyData <- enframe(results, 
+        name = 'simulation_number', 
+        value = 'ncorrect')
+
+
+babyData |>
+  count(ncorrect) |>
+  mutate(proportions = n / sum(n)) |> 
+  select(ncorrect, proportions) |>
+  pivot_wider(names_from = ncorrect,
+              values_from = proportions) |>
+  gt() |>
+  
+  tab_header(title = 'Proportion of Simulations for Correctly Returned Babies') |>
+  cols_label(`0` = '0 Babies',
+             `1` = '1 Baby',
+             `2` = '2 Babies',
+             `4` = '4 Babies') |>
+ 
+   tab_options(table.font.size = 12,
+               table.font.names = 'Georgia')
 
 ```
 
@@ -986,7 +965,7 @@ ca_childcare |>
        y = "",
        title = "Weekly Median Price for Center-Based Childcare ($)",
        color = "California Region") +
-  scale_color_brewer(palette = "Accent") +
+  scale_color_manual(values = colorRampPalette(brewer.pal(8, 'Accent'))(10)) +
   theme(aspect.ratio = 1) +
   theme_bw() 
 
@@ -1032,18 +1011,53 @@ ggplot(data = surveys,
 ```{r}
 #| label: dvs-3-3
 
-# Challenge 2
+# Lab 4 Question 6
 
-library(ggridges)
-
-ggplot(data = surveys, aes(x = weight, y = species, fill = species)) +
-  geom_jitter(alpha = 0.6, colour = "orange3") +
-  labs(title = "Determining Weight Ditribution of Each Specie of Rotents",
-       x = "Weight (grams)",
+ca_childcare |>
+  
+  pivot_longer(mc_infant:mc_preschool,
+               names_to = "Child Category",
+               values_to = "Median Price") |>
+  
+  select(Region, 
+         study_year, 
+         `Child Category`, 
+         `Median Price`) |>
+  
+  mutate(`Child Category` = fct_recode(.f = `Child Category`,
+                    "Infant" = "mc_infant",
+                    "Toddler" = "mc_toddler",
+                    "Preschool" = "mc_preschool"),
+         
+         `Child Category` = fct_relevel(`Child Category`,
+                                        "Infant", 
+                                        "Toddler", 
+                                        "Preschool")
+         ) |>
+  
+  ggplot(aes(x = study_year, 
+             y = `Median Price`, 
+             color = fct_reorder2(.f = Region, 
+                                  .x = study_year, 
+                                  .y = `Median Price`)
+             )
+         ) +
+  
+  geom_point() +
+  geom_smooth(aes(colour = factor(Region), 
+                  method = "loess")) +
+  
+  facet_wrap(~ `Child Category`) +
+  scale_x_continuous(breaks = seq(2008, 2018, by = 2)) +
+  scale_y_continuous(breaks = seq(100, 700, by = 100), 
+                     limits = c(100, 500)) +
+  labs(x = "Study Year",
        y = "",
-       subtitle = "Species of Rodent") +
-  geom_density_ridges() +
-  theme(legend.position = 'none') 
+       title = "Weekly Median Price for Center-Based Childcare ($)",
+       color = "California Region") +
+  scale_color_manual(values = colorRampPalette(brewer.pal(8, 'Accent'))(10)) +
+  theme(aspect.ratio = 1) +
+  theme_bw() 
 
 ```
 
@@ -1122,18 +1136,29 @@ teacher_evals_clean |>
 ```{r}
 #| label: dvs-6-1
 
-# Lab 4 Question 4
+# Lab 9 Question 2
 
-ca_childcare |>
-  group_by(Region, study_year) |>
-  summarise(median_income = median(mhi_2018)) |>
-  ungroup() |>
-  pivot_wider(names_from = study_year,
-              values_from = median_income,
-              names_prefix = "Median Household Income ") |>
-  arrange(desc(`Median Household Income 2018`)) |>
-  select(Region, `Median Household Income 2008`, `Median Household Income 2018`) 
+babyData <- enframe(results, 
+        name = 'simulation_number', 
+        value = 'ncorrect')
 
+
+babyData |>
+  count(ncorrect) |>
+  mutate(proportions = n / sum(n)) |> 
+  select(ncorrect, proportions) |>
+  pivot_wider(names_from = ncorrect,
+              values_from = proportions) |>
+  gt() |>
+  
+  tab_header(title = 'Proportion of Simulations for Correctly Returned Babies') |>
+  cols_label(`0` = '0 Babies',
+             `1` = '1 Baby',
+             `2` = '2 Babies',
+             `4` = '4 Babies') |>
+ 
+   tab_options(table.font.size = 12,
+               table.font.names = 'Georgia')
 ```
 
 -   Example 2
@@ -1141,48 +1166,39 @@ ca_childcare |>
 ```{r}
 #| label: dvs-6-2
 
-# Lab 4 Question 3
+# Lab 8 Question 3
 
-ca_childcare <- ca_childcare |> 
-  mutate(Region = fct_collapse(.f = county_name, 
-                               
-                               "Superior California" = c("Butte County", "Colusa County", 
-                                                         "El Dorado County","Glenn County", 
-                                                         "Lassen County", "Modoc County", 
-                                                         "Nevada County", "Placer County", 
-                                                         "Plumas County", "Sacramento County", 
-                                                         "Shasta County", "Sierra County", 
-                                                         "Siskiyou County", "Sutter County", 
-                                                         "Tehama County", "Yolo County", 
-                                                         "Yuba County"), 
-                               "North Coast" = c("Del Norte County", "Humboldt County", 
-                                                 "Lake County", "Mendocino County", 
-                                                 "Napa County", "Sonoma County", 
-                                                 "Trinity County"),
-                               "San Francisco Bay Area" = c("Alameda County", "Contra Costa County", 
-                                                            "Marin County", "San Francisco County",
-                                                            "San Mateo County", "Santa Clara County", 
-                                                            "Solano County"),
-                               "Northen San Joaquin Valley" = c("Alpine County", "Amador County", 
-                                                                "Calaveras County", "Madera County", 
-                                                                "Mariposa County", "Merced County", 
-                                                                "Mono County", "San Joaquin County", 
-                                                                "Stanislaus County", "Tuolumne County"),
-                               "Central Coast" = c("Monterey County", "San Benito County", 
-                                                   "San Luis Obispo County", "Santa Barbara County", 
-                                                   "Santa Cruz County", "Ventura County"),
-                               "Southern San Joaquin Valley" = c("Fresno County", "Inyo County", 
-                                                                 "Kern County", "Kings County", 
-                                                                 "Tulare County"),
-                               "Inland Empire" = c("Riverside County", "San Bernardino County"),
-                               "LA County" = c("Los Angeles County"),
-                               "Orange County" = c("Orange County"),
-                               "San Diego-Imperial" =c("Imperial County", "San Diego County")
-              
-                               ),
-         .after = county_fips_code
-         )
-
+evals |>
+  mutate(seniority = ifelse(seniority <= 4, 
+                            'Junior (4 years or less)', 
+                            'Senior (more than 4 years)')) |>
+  distinct(teacher_id,
+           seniority,
+           academic_degree,
+           sex) |>
+  
+  pivot_longer(cols = seniority:sex,
+               names_to = 'lvl',
+               values_to = 'vals') |>
+  
+  count(vals) |>
+  
+  pivot_wider(names_from = vals,
+              values_from = n) |>
+  
+  select(Female = female,
+         Male = male,
+         `Junior (4 years or less)`,
+         `Senior (more than 4 years)`,
+         `No Degree` = no_dgr,
+         Masters = ma,
+         Doctorate = dr,
+         Professor = prof) |>
+  kable(format = 'html') |>
+  kable_styling(bootstrap_options = c('condensed', 
+                                      'hover', 
+                                      'striped')
+                )
 ```
 
 **DVS-7: I show creativity in my tables.**
@@ -1192,17 +1208,29 @@ ca_childcare <- ca_childcare |>
 ```{r}
 #| label: dvs-7-1
 
-# Lab 4 Question 4
+# Lab 9 Question 2
 
-ca_childcare |>
-  group_by(Region, study_year) |>
-  summarise(median_income = median(mhi_2018)) |>
-  ungroup() |>
-  pivot_wider(names_from = study_year,
-              values_from = median_income,
-              names_prefix = "Median Household Income ") |>
-  arrange(desc(`Median Household Income 2018`)) |>
-  select(Region, `Median Household Income 2008`, `Median Household Income 2018`)
+babyData <- enframe(results, 
+        name = 'simulation_number', 
+        value = 'ncorrect')
+
+
+babyData |>
+  count(ncorrect) |>
+  mutate(proportions = n / sum(n)) |> 
+  select(ncorrect, proportions) |>
+  pivot_wider(names_from = ncorrect,
+              values_from = proportions) |>
+  gt() |>
+  
+  tab_header(title = 'Proportion of Simulations for Correctly Returned Babies') |>
+  cols_label(`0` = '0 Babies',
+             `1` = '1 Baby',
+             `2` = '2 Babies',
+             `4` = '4 Babies') |>
+ 
+   tab_options(table.font.size = 12,
+               table.font.names = 'Georgia')
 
 ```
 
@@ -1211,47 +1239,17 @@ ca_childcare |>
 ```{r}
 #| label: dvs-7-2
 
-# Lab 4 Question 3
+# Lab 8 Question 4
 
-ca_childcare <- ca_childcare |> 
-  mutate(Region = fct_collapse(.f = county_name, 
-                               
-                               "Superior California" = c("Butte County", "Colusa County", 
-                                                         "El Dorado County","Glenn County", 
-                                                         "Lassen County", "Modoc County", 
-                                                         "Nevada County", "Placer County", 
-                                                         "Plumas County", "Sacramento County", 
-                                                         "Shasta County", "Sierra County", 
-                                                         "Siskiyou County", "Sutter County", 
-                                                         "Tehama County", "Yolo County", 
-                                                         "Yuba County"), 
-                               "North Coast" = c("Del Norte County", "Humboldt County", 
-                                                 "Lake County", "Mendocino County", 
-                                                 "Napa County", "Sonoma County", 
-                                                 "Trinity County"),
-                               "San Francisco Bay Area" = c("Alameda County", "Contra Costa County", 
-                                                            "Marin County", "San Francisco County",
-                                                            "San Mateo County", "Santa Clara County", 
-                                                            "Solano County"),
-                               "Northen San Joaquin Valley" = c("Alpine County", "Amador County", 
-                                                                "Calaveras County", "Madera County", 
-                                                                "Mariposa County", "Merced County", 
-                                                                "Mono County", "San Joaquin County", 
-                                                                "Stanislaus County", "Tuolumne County"),
-                               "Central Coast" = c("Monterey County", "San Benito County", 
-                                                   "San Luis Obispo County", "Santa Barbara County", 
-                                                   "Santa Cruz County", "Ventura County"),
-                               "Southern San Joaquin Valley" = c("Fresno County", "Inyo County", 
-                                                                 "Kern County", "Kings County", 
-                                                                 "Tulare County"),
-                               "Inland Empire" = c("Riverside County", "San Bernardino County"),
-                               "LA County" = c("Los Angeles County"),
-                               "Orange County" = c("Orange County"),
-                               "San Diego-Imperial" =c("Imperial County", "San Diego County")
-              
-                               ),
-         .after = county_fips_code
-         )
+fish |>
+  map_int(.f = ~ sum(is.na(.x))) |>
+  kable(format = 'html',
+        caption = 'Missing Values in Aggregate') |>
+  kable_styling(bootstrap_options = c('condensed', 
+                                      'hover', 
+                                      'striped')
+                )
+
 ```
 
 ## Program Efficiency
@@ -1325,7 +1323,16 @@ teacher_evals_clean |>
 ```{r}
 #| label: pe-1-map-1
 
-# Will implement in Final
+# Lab 8 Question 4
+
+fish |>
+  map_int(.f = ~ sum(is.na(.x))) |>
+  kable(format = 'html',
+        caption = 'Missing Values in Aggregate') |>
+  kable_styling(bootstrap_options = c('condensed', 
+                                      'hover', 
+                                      'striped')
+                )
 
 ```
 
@@ -1336,21 +1343,17 @@ teacher_evals_clean |>
 ```{r}
 #| label: pe-2-1
 
-# Lab 2 Question 13
+# Lab 7 Question 4
 
-cdPalette_grey <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-
-ggplot(data = surveys, 
-       mapping = aes(x = species, y = weight, colour = genus)
-       ) +
-  geom_jitter(colour = "orange3", alpha = 0.6) +
-  geom_boxplot() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_color_manual(values = cdPalette_grey)
-  labs(title = "Rodent Weights by Different Species",
-       x = "Species",
-       y = '',
-       subtitle = "Weight (grams)")
+rescale_01 <- function(x) {
+  
+  stopifnot(is.numeric(x), length(x) > 1)
+  
+  minimum <- min(x, na.rm = TRUE)
+  maximum <- max(x, na.rm = TRUE)
+  (x - minimum) / (maximum - minimum)
+  
+}
 
 ```
 
@@ -1360,19 +1363,13 @@ ggplot(data = surveys,
 #| label: pe-2-2
 
 
-# Lab 3 Question 12
+# Lab 7 Question 3
 
-percentResp <- teacher_evals_clean |>
+cond_index <- function(length, weight){
   
-  group_by(teacher_id) |>
-  filter(sex == "female", 
-         academic_degree %in% c("prof", "dr")) |>
-  summarise(avg_resp = mean(resp_share), .groups = "drop")
+  return((weight / length^3) * 100)
   
-  
-percentResp |>
-  filter(avg_resp == max(avg_resp) |
-        avg_resp == min(avg_resp))
+}
 
 
 ```
@@ -1397,7 +1394,13 @@ teacher_evals_clean |>
 ```{r}
 #| label: pe-3-map-1
 
-# Will implement in Final
+# Lab 8 Question 1
+
+map_chr(surveys, typeof) |>
+  bind_rows()|>
+  kable(format = 'html',
+        caption = 'Variable Data Types',
+        align = 'c')
 
 ```
 
@@ -1417,17 +1420,11 @@ teacher_evals_clean |>
 ```{r}
 #| label: pe-4-1
 
-# Challenge 3
+# Lab 3 Question 7
 
-teacher_evals_compare <- teacher |>
-  filter(question_no == 903) |>
-  mutate(SET_level = if_else(SET_score_avg >= 4, 
-                             "excellent", 
-                             "standard"),
-         sen_level = if_else(seniority <= 4, 
-                             "Junior", 
-                             "Senior")) |>
-  select(course_id, SET_level, sen_level)
+teacher_evals_clean |>
+  filter(across(course_id:sex, is.na)) |>
+  distinct(course_id, teacher_id, percent_failed_cur)
 
 ```
 
@@ -1480,9 +1477,9 @@ ca_childcare |>
        y = "",
        title = "Weekly Median Price for Center-Based Childcare ($)",
        color = "California Region") +
-  scale_color_brewer(palette = "Accent") +
+  scale_color_manual(values = colorRampPalette(brewer.pal(8, 'Accent'))(10)) +
   theme(aspect.ratio = 1) +
-  theme_bw()
+  theme_bw() 
 ```
 
 ## Data Simulation & Statisical Models
@@ -1494,7 +1491,19 @@ ca_childcare |>
 ```{r}
 #| label: dsm-1-1
 
-# Will implement in Final
+# Lab 9 Question 1
+
+
+randomBabies <- function(nBabies = 4){
+  
+  shuff_babies <- sample(1:nBabies)
+  return(sum(1:nBabies == shuff_babies))
+    
+}
+
+
+results <- map_int(.x = 1:10000,
+                   .f = ~ randomBabies())
 
 ```
 
