@@ -1069,22 +1069,17 @@ ca_childcare |>
 #| label: dvs-4-summarize
 
 # Lab 3 Question 11
-# Highest
 
-teacher_evals_clean |>
+
+stu_fail <- teacher_evals_clean |>
   
   group_by(teacher_id) |>
   filter(seniority == 1) |>
-  summarise(avg_fail = mean(percent_failed_cur), .groups = "drop") |>
-  slice_max(avg_fail)
+  summarise(avg_fail = mean(percent_failed_cur), .groups = "drop")
 
-# Lowest
-teacher_evals_clean |>
-  
-  group_by(teacher_id) |>
-  filter(seniority == 1) |>
-  summarise(avg_fail = mean(percent_failed_cur), .groups = "drop") |>
-  slice_min(avg_fail)
+stu_fail |>
+  filter(avg_fail == max(avg_fail) |
+         avg_fail == min(avg_fail))
 
 ```
 
@@ -1549,9 +1544,42 @@ summary(reg_mod1)
 
 <!-- For the revisions included in your Portfolio, to help me understand the nature of your revisions, please denote somehow the feedback I provided you (e.g., boldface, italics, colored text) before your revisions. -->
 
+Throughout the duration of this course, I was able to successfully revise my thinking by transitioning from my perspective of programming in SQL and Python to tidy and efficient programming in R. I recognized my habitual functional programming style echoing in certain areas of R, specifically throughout iterations and my tendencies of using loops. This was heavily illustrated in week 8 of the course when inquiring about functions and leveraging functions in place of while and for loops. Within lab 8 question 4 highlighted below, I was able to leverage the map_int() function instead of loops to sum all instances of empty values across the \`fish\` data set. This enabled me to revise my traditional perception of functional programming and incorporate a tidy and efficient R code.
+
+```{r}
+
+# Lab 8 Question 4
+
+fish |>
+  map_int(.f = ~ sum(is.na(.x))) |>
+  kable(format = 'html',
+        caption = 'Missing Values in Aggregate') |>
+  kable_styling(bootstrap_options = c('condensed', 
+                                      'hover', 
+                                      'striped')
+                )
+
+```
+
 ## Extending My Thinking
 
 <!-- How did you extended your thinking throughout the course? How did you extend your thinking on the code examples you have provided in your portfolio? -->
+
+Throughout the course, I successfully extended my thinking my reducing redundancies to ensure an efficient programming style. In the code chunk below, I had originally developed two pipe operators - one to retrieve the maximum average student course failures and one for the minimum average student course failures in lab 3 question 11. However, I reduced 5 lines of code by applying the range() function that simultanously calculates the max and min of numeric vectors to store both the minimum and maximum proportions of avgerage student failures in the stu_fail() object.
+
+```{r}
+
+# Lab 3 Question 11
+
+
+stu_fail <- teacher_evals_clean |>
+  
+  group_by(teacher_id) |>
+  filter(seniority == 1) |>
+  summarise(avg_fail = mean(percent_failed_cur), .groups = "drop") |>
+  filter(avg_fail %in% range(avg_fail))
+
+```
 
 ## Peer Support & Collaboration
 
