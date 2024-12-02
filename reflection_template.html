@@ -4050,11 +4050,8 @@ vertical-align: -.125em;
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(teacher_id) <span class="sc">|&gt;</span></span>
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(seniority <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_fail =</span> <span class="fu">mean</span>(percent_failed_cur), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>stu_fail <span class="sc">|&gt;</span></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(avg_fail <span class="sc">==</span> <span class="fu">max</span>(avg_fail) <span class="sc">|</span></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>         avg_fail <span class="sc">==</span> <span class="fu">min</span>(avg_fail))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_fail =</span> <span class="fu">mean</span>(percent_failed_cur), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(avg_fail <span class="sc">%in%</span> <span class="fu">range</span>(avg_fail))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Example using <code>across()</code></li>
@@ -4463,7 +4460,7 @@ vertical-align: -.125em;
 <section id="extending-my-thinking" class="level2">
 <h2 class="anchored" data-anchor-id="extending-my-thinking">Extending My Thinking</h2>
 <!-- How did you extended your thinking throughout the course? How did you extend your thinking on the code examples you have provided in your portfolio? -->
-<p>Throughout the course, I successfully extended my thinking my reducing redundancies to ensure an efficient programming style. In the code chunk below, I had originally developed two pipe operators - one to retrieve the maximum average student course failures and one for the minimum average student course failures in lab 3 question 11. However, I reduced 5 lines of code by applying the range() function that simultanously calculates the max and min of numeric vectors to store both the minimum and maximum proportions of avgerage student failures in the stu_fail() object.</p>
+<p>Throughout the course, I successfully extended my thinking my reducing redundancies to ensure an efficient programming style. This allowed me to inboke my ciritcal thinking and research to determine different vectorized functions that can be implemented to tackle an objective from a variety of angles. In the code chunk below, I had originally developed two pipe operators - one to retrieve the maximum average student course failures and one for the minimum average student course failures in lab 3 question 11. However, I reduced 5 lines of code by applying the range() function that simultanously calculates the max and min of numeric vectors to store both the minimum and maximum proportions of avgerage student failures in the stu_fail object.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 3 Question 11</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -4480,6 +4477,20 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="peer-support-collaboration">Peer Support &amp; Collaboration</h2>
 <!-- Include an image or a description of feedback you gave that you are proud of (either in a peer review or in Discord). -->
 <!-- Include a description of how you grew as a collaborator through the weekly pair programming activities.   -->
+<p>Within Lab 7 Peer Review, I provided the following feedback that I believe to be substantive and informatiev, both for me and my peer:</p>
+<section id="tidy-code" class="level6">
+<h6 class="anchored" data-anchor-id="tidy-code"><strong><em>Tidy Code</em></strong></h6>
+</section>
+<section id="amazing-job-applying-ggplot-within-a-pipe-operator-the-and-operator-is-applied-perfectly-at-the-end-of-each-pipe-and-ggplot-function-which-is-awesome.-commas-are-applied-appropriately-followed-by-new-lines-to-maintain-a-tidy-code.-great-use-of-non-traditional-default-colors-it-definitely-adds-character.-i-might-recommend-widening-the-width-of-your-visualization-plot-in-question-2-so-viewers-dont-have-to-tilt-their-head." class="level6">
+<h6 class="anchored" data-anchor-id="amazing-job-applying-ggplot-within-a-pipe-operator-the-and-operator-is-applied-perfectly-at-the-end-of-each-pipe-and-ggplot-function-which-is-awesome.-commas-are-applied-appropriately-followed-by-new-lines-to-maintain-a-tidy-code.-great-use-of-non-traditional-default-colors-it-definitely-adds-character.-i-might-recommend-widening-the-width-of-your-visualization-plot-in-question-2-so-viewers-dont-have-to-tilt-their-head."><strong><em>Amazing job applying ggplot within a pipe operator! The |&gt; and “+” operator is applied perfectly at the end of each pipe and ggplot function which is awesome. Commas are applied appropriately followed by new lines to maintain a tidy code. Great use of non-traditional default colors, it definitely adds character. I might recommend widening the width of your visualization plot in question 2 so viewers don’t have to tilt their head.</em></strong></h6>
+</section>
+<section id="efficient-code" class="level6">
+<h6 class="anchored" data-anchor-id="efficient-code"><strong><em>Efficient Code</em></strong></h6>
+</section>
+<section id="i-dont-seem-to-see-any-redundancy-in-functions-no-repeats-which-is-awesome-i-also-dont-seem-to-find-creating-multiple-variables-when-not-necessary-which-is-great-within-number-4-i-might-recommend-using-the-stopifnot-function-so-you-can-eliminate-4-lines-for-an-efficient-code-chunk.-overall-awesome-job" class="level6">
+<h6 class="anchored" data-anchor-id="i-dont-seem-to-see-any-redundancy-in-functions-no-repeats-which-is-awesome-i-also-dont-seem-to-find-creating-multiple-variables-when-not-necessary-which-is-great-within-number-4-i-might-recommend-using-the-stopifnot-function-so-you-can-eliminate-4-lines-for-an-efficient-code-chunk.-overall-awesome-job"><strong><em>I don’t seem to see any redundancy in functions (no repeats) which is awesome! I also don’t seem to find creating multiple variables when not necessary which is great! Within number 4, I might recommend using the stopifnot() function so you can eliminate 4 lines for an efficient code chunk. Overall, awesome job!</em></strong></h6>
+<p>As a collaborator on weekly practice activities, I believe I have gained the confidence to share my perspective without the scare of being perceived as “uneducated” on the subject matter. Additionally, I further learned to trust and my peers’ problem-solving style that may differ from my own which equipped me with unparalleled knowledge and perspective of pursuing solutions in variety of ways.</p>
+</section>
 </section>
 
 </main>

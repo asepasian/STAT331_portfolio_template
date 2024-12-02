@@ -1075,11 +1075,8 @@ stu_fail <- teacher_evals_clean |>
   
   group_by(teacher_id) |>
   filter(seniority == 1) |>
-  summarise(avg_fail = mean(percent_failed_cur), .groups = "drop")
-
-stu_fail |>
-  filter(avg_fail == max(avg_fail) |
-         avg_fail == min(avg_fail))
+  summarise(avg_fail = mean(percent_failed_cur), .groups = "drop") |>
+  filter(avg_fail %in% range(avg_fail))
 
 ```
 
@@ -1565,7 +1562,7 @@ fish |>
 
 <!-- How did you extended your thinking throughout the course? How did you extend your thinking on the code examples you have provided in your portfolio? -->
 
-Throughout the course, I successfully extended my thinking my reducing redundancies to ensure an efficient programming style. In the code chunk below, I had originally developed two pipe operators - one to retrieve the maximum average student course failures and one for the minimum average student course failures in lab 3 question 11. However, I reduced 5 lines of code by applying the range() function that simultanously calculates the max and min of numeric vectors to store both the minimum and maximum proportions of avgerage student failures in the stu_fail() object.
+Throughout the course, I successfully extended my thinking my reducing redundancies to ensure an efficient programming style. This allowed me to inboke my ciritcal thinking and research to determine different vectorized functions that can be implemented to tackle an objective from a variety of angles. In the code chunk below, I had originally developed two pipe operators - one to retrieve the maximum average student course failures and one for the minimum average student course failures in lab 3 question 11. However, I reduced 5 lines of code by applying the range() function that simultanously calculates the max and min of numeric vectors to store both the minimum and maximum proportions of avgerage student failures in the stu_fail object.
 
 ```{r}
 
@@ -1586,3 +1583,15 @@ stu_fail <- teacher_evals_clean |>
 <!-- Include an image or a description of feedback you gave that you are proud of (either in a peer review or in Discord). -->
 
 <!-- Include a description of how you grew as a collaborator through the weekly pair programming activities.   -->
+
+Within Lab 7 Peer Review, I provided the following feedback that I believe to be substantive and informatiev, both for me and my peer:
+
+###### ***Tidy Code***
+
+###### ***Amazing job applying ggplot within a pipe operator! The \|\> and “+” operator is applied perfectly at the end of each pipe and ggplot function which is awesome. Commas are applied appropriately followed by new lines to maintain a tidy code. Great use of non-traditional default colors, it definitely adds character. I might recommend widening the width of your visualization plot in question 2 so viewers don’t have to tilt their head.***
+
+###### ***Efficient Code***
+
+###### ***I don’t seem to see any redundancy in functions (no repeats) which is awesome! I also don’t seem to find creating multiple variables when not necessary which is great! Within number 4, I might recommend using the stopifnot() function so you can eliminate 4 lines for an efficient code chunk. Overall, awesome job!***
+
+As a collaborator on weekly practice activities, I believe I have gained the confidence to share my perspective without the scare of being perceived as "uneducated" on the subject matter. Additionally, I further learned to trust and  my peers' problem-solving style that may differ from my own which equipped me with unparalleled knowledge and perspective of pursuing solutions in variety of ways.
