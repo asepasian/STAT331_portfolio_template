@@ -1,5 +1,5 @@
 ---
-title: "STAT 331 Midterm Portfolio"
+title: "STAT 331 Final Portfolio"
 author: "Amir Sepasian"
 format: 
   html: 
@@ -1085,7 +1085,12 @@ stu_fail <- teacher_evals_clean |>
 ```{r}
 #| label: dvs-4-across
 
-# Will implement in Final
+# Lab 7 Question 1
+
+fish |>
+  summarise(across(trip:species, 
+                   ~ sum(is.na(.)), 
+                   .names = "missing_{.col}"))
 
 ```
 
@@ -1117,7 +1122,17 @@ teacher_evals_clean |>
 ```{r}
 #| label: dvs-5-2
 
-# Will implement in Final
+# Lab 4 Question 4
+
+ca_childcare |>
+  group_by(Region, study_year) |>
+  summarise(median_income = median(mhi_2018)) |>
+  ungroup() |>
+  pivot_wider(names_from = study_year,
+              values_from = median_income,
+              names_prefix = "Median Household Income ") |>
+  arrange(desc(`Median Household Income 2018`)) |>
+  select(Region, `Median Household Income 2008`, `Median Household Income 2018`)
 
 ```
 
@@ -1253,47 +1268,15 @@ fish |>
 ```{r}
 #| label: pe-1-one-call
 
-# Lab 4 Question 3
+# Lab 3 Question 8
 
-ca_childcare <- ca_childcare |> 
-  mutate(Region = fct_collapse(.f = county_name, 
-                               
-                               "Superior California" = c("Butte County", "Colusa County", 
-                                                         "El Dorado County","Glenn County", 
-                                                         "Lassen County", "Modoc County", 
-                                                         "Nevada County", "Placer County", 
-                                                         "Plumas County", "Sacramento County", 
-                                                         "Shasta County", "Sierra County", 
-                                                         "Siskiyou County", "Sutter County", 
-                                                         "Tehama County", "Yolo County", 
-                                                         "Yuba County"), 
-                               "North Coast" = c("Del Norte County", "Humboldt County", 
-                                                 "Lake County", "Mendocino County", 
-                                                 "Napa County", "Sonoma County", 
-                                                 "Trinity County"),
-                               "San Francisco Bay Area" = c("Alameda County", "Contra Costa County", 
-                                                            "Marin County", "San Francisco County",
-                                                            "San Mateo County", "Santa Clara County", 
-                                                            "Solano County"),
-                               "Northen San Joaquin Valley" = c("Alpine County", "Amador County", 
-                                                                "Calaveras County", "Madera County", 
-                                                                "Mariposa County", "Merced County", 
-                                                                "Mono County", "San Joaquin County", 
-                                                                "Stanislaus County", "Tuolumne County"),
-                               "Central Coast" = c("Monterey County", "San Benito County", 
-                                                   "San Luis Obispo County", "Santa Barbara County", 
-                                                   "Santa Cruz County", "Ventura County"),
-                               "Southern San Joaquin Valley" = c("Fresno County", "Inyo County", 
-                                                                 "Kern County", "Kings County", 
-                                                                 "Tulare County"),
-                               "Inland Empire" = c("Riverside County", "San Bernardino County"),
-                               "LA County" = c("Los Angeles County"),
-                               "Orange County" = c("Orange County"),
-                               "San Diego-Imperial" =c("Imperial County", "San Diego County")
-              
-                               ),
-         .after = county_fips_code
-         )
+teacher_evals_clean |>
+  group_by(academic_degree, seniority, sex) |>
+  summarise(avg_seniority = mean(seniority),
+            min_seniority = min(seniority),
+            max_seniority = max(seniority),
+            unique_teachers = n_distinct(teacher_id)
+            )
 
 ```
 
@@ -1302,11 +1285,12 @@ ca_childcare <- ca_childcare |>
 ```{r}
 #| label: pe-1-across
 
-# Lab 3 Question 7
+# Lab 7 Question 1
 
-teacher_evals_clean |>
-  filter(across(course_id:sex, is.na)) |>
-  distinct(course_id, teacher_id, percent_failed_cur)
+fish |>
+  summarise(across(trip:species, 
+                   ~ sum(is.na(.)), 
+                   .names = "missing_{.col}"))
 
 ```
 
@@ -1366,7 +1350,7 @@ cond_index <- function(length, weight){
 
 ```
 
-**PE-3:I can use iteration to reduce repetition in my code.**
+**PE-3: I can use iteration to reduce repetition in my code.**
 
 -   `across()`
 
@@ -1376,7 +1360,7 @@ cond_index <- function(length, weight){
 # Lab 3 Question 7
 
 teacher_evals_clean |>
-  filter(across(course_id:sex, is.na)) |>
+  filter(if_any(.cols = everything(), .fns = is.na)) |>
   distinct(course_id, teacher_id, percent_failed_cur)
 
 ```
@@ -1415,7 +1399,7 @@ map_chr(surveys, typeof) |>
 # Lab 3 Question 7
 
 teacher_evals_clean |>
-  filter(across(course_id:sex, is.na)) |>
+  filter(if_any(.cols = everything(), .fns = is.na)) |>
   distinct(course_id, teacher_id, percent_failed_cur)
 
 ```
@@ -1594,4 +1578,4 @@ Within Lab 7 Peer Review, I provided the following feedback that I believe to be
 
 ###### ***I don’t seem to see any redundancy in functions (no repeats) which is awesome! I also don’t seem to find creating multiple variables when not necessary which is great! Within number 4, I might recommend using the stopifnot() function so you can eliminate 4 lines for an efficient code chunk. Overall, awesome job!***
 
-As a collaborator on weekly practice activities, I believe I have gained the confidence to share my perspective without the scare of being perceived as "uneducated" on the subject matter. Additionally, I further learned to trust and  my peers' problem-solving style that may differ from my own which equipped me with unparalleled knowledge and perspective of pursuing solutions in variety of ways.
+As a collaborator on weekly practice activities, I believe I have gained the confidence to share my perspective without the scare of being perceived as "uneducated" on the subject matter. Additionally, I further learned to trust and my peers' problem-solving style that may differ from my own which equipped me with unparalleled knowledge and perspective of pursuing solutions in variety of ways.

@@ -8,7 +8,7 @@
 
 <meta name="author" content="Amir Sepasian">
 
-<title>STAT 331 Midterm Portfolio</title>
+<title>STAT 331 Final Portfolio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3085,7 +3085,7 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">STAT 331 Midterm Portfolio</h1>
+<h1 class="title">STAT 331 Final Portfolio</h1>
 </div>
 
 
@@ -4057,7 +4057,12 @@ vertical-align: -.125em;
 <li>Example using <code>across()</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Will implement in Final</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 7 Question 1</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>fish <span class="sc">|&gt;</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(trip<span class="sc">:</span>species, </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>                   <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)), </span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.names =</span> <span class="st">&quot;missing_{.col}&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>DVS-5: I can find summaries of variables across multiple groups.</strong></p>
 <ul>
@@ -4081,7 +4086,17 @@ vertical-align: -.125em;
 <li>Example 2</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Will implement in Final</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 4 Question 4</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>ca_childcare <span class="sc">|&gt;</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Region, study_year) <span class="sc">|&gt;</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">median_income =</span> <span class="fu">median</span>(mhi_2018)) <span class="sc">|&gt;</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> study_year,</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> median_income,</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_prefix =</span> <span class="st">&quot;Median Household Income &quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="st">`</span><span class="at">Median Household Income 2018</span><span class="st">`</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Region, <span class="st">`</span><span class="at">Median Household Income 2008</span><span class="st">`</span>, <span class="st">`</span><span class="at">Median Household Income 2018</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>DVS-6: I can create tables which make my summaries clear to the reader.</strong></p>
 <ul>
@@ -4202,57 +4217,26 @@ vertical-align: -.125em;
 <li>using a single function call with multiple inputs (rather than multiple function calls)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 4 Question 3</span></span>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 3 Question 8</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>ca_childcare <span class="ot">&lt;-</span> ca_childcare <span class="sc">|&gt;</span> </span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Region =</span> <span class="fu">fct_collapse</span>(<span class="at">.f =</span> county_name, </span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>                               </span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;Superior California&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Butte County&quot;</span>, <span class="st">&quot;Colusa County&quot;</span>, </span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>                                                         <span class="st">&quot;El Dorado County&quot;</span>,<span class="st">&quot;Glenn County&quot;</span>, </span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>                                                         <span class="st">&quot;Lassen County&quot;</span>, <span class="st">&quot;Modoc County&quot;</span>, </span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>                                                         <span class="st">&quot;Nevada County&quot;</span>, <span class="st">&quot;Placer County&quot;</span>, </span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>                                                         <span class="st">&quot;Plumas County&quot;</span>, <span class="st">&quot;Sacramento County&quot;</span>, </span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>                                                         <span class="st">&quot;Shasta County&quot;</span>, <span class="st">&quot;Sierra County&quot;</span>, </span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>                                                         <span class="st">&quot;Siskiyou County&quot;</span>, <span class="st">&quot;Sutter County&quot;</span>, </span>
-<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>                                                         <span class="st">&quot;Tehama County&quot;</span>, <span class="st">&quot;Yolo County&quot;</span>, </span>
-<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>                                                         <span class="st">&quot;Yuba County&quot;</span>), </span>
-<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;North Coast&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Del Norte County&quot;</span>, <span class="st">&quot;Humboldt County&quot;</span>, </span>
-<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>                                                 <span class="st">&quot;Lake County&quot;</span>, <span class="st">&quot;Mendocino County&quot;</span>, </span>
-<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>                                                 <span class="st">&quot;Napa County&quot;</span>, <span class="st">&quot;Sonoma County&quot;</span>, </span>
-<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>                                                 <span class="st">&quot;Trinity County&quot;</span>),</span>
-<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;San Francisco Bay Area&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Alameda County&quot;</span>, <span class="st">&quot;Contra Costa County&quot;</span>, </span>
-<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>                                                            <span class="st">&quot;Marin County&quot;</span>, <span class="st">&quot;San Francisco County&quot;</span>,</span>
-<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>                                                            <span class="st">&quot;San Mateo County&quot;</span>, <span class="st">&quot;Santa Clara County&quot;</span>, </span>
-<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>                                                            <span class="st">&quot;Solano County&quot;</span>),</span>
-<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;Northen San Joaquin Valley&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Alpine County&quot;</span>, <span class="st">&quot;Amador County&quot;</span>, </span>
-<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a>                                                                <span class="st">&quot;Calaveras County&quot;</span>, <span class="st">&quot;Madera County&quot;</span>, </span>
-<span id="cb43-25"><a href="#cb43-25" aria-hidden="true" tabindex="-1"></a>                                                                <span class="st">&quot;Mariposa County&quot;</span>, <span class="st">&quot;Merced County&quot;</span>, </span>
-<span id="cb43-26"><a href="#cb43-26" aria-hidden="true" tabindex="-1"></a>                                                                <span class="st">&quot;Mono County&quot;</span>, <span class="st">&quot;San Joaquin County&quot;</span>, </span>
-<span id="cb43-27"><a href="#cb43-27" aria-hidden="true" tabindex="-1"></a>                                                                <span class="st">&quot;Stanislaus County&quot;</span>, <span class="st">&quot;Tuolumne County&quot;</span>),</span>
-<span id="cb43-28"><a href="#cb43-28" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;Central Coast&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Monterey County&quot;</span>, <span class="st">&quot;San Benito County&quot;</span>, </span>
-<span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">&quot;San Luis Obispo County&quot;</span>, <span class="st">&quot;Santa Barbara County&quot;</span>, </span>
-<span id="cb43-30"><a href="#cb43-30" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">&quot;Santa Cruz County&quot;</span>, <span class="st">&quot;Ventura County&quot;</span>),</span>
-<span id="cb43-31"><a href="#cb43-31" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;Southern San Joaquin Valley&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Fresno County&quot;</span>, <span class="st">&quot;Inyo County&quot;</span>, </span>
-<span id="cb43-32"><a href="#cb43-32" aria-hidden="true" tabindex="-1"></a>                                                                 <span class="st">&quot;Kern County&quot;</span>, <span class="st">&quot;Kings County&quot;</span>, </span>
-<span id="cb43-33"><a href="#cb43-33" aria-hidden="true" tabindex="-1"></a>                                                                 <span class="st">&quot;Tulare County&quot;</span>),</span>
-<span id="cb43-34"><a href="#cb43-34" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;Inland Empire&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Riverside County&quot;</span>, <span class="st">&quot;San Bernardino County&quot;</span>),</span>
-<span id="cb43-35"><a href="#cb43-35" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;LA County&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Los Angeles County&quot;</span>),</span>
-<span id="cb43-36"><a href="#cb43-36" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;Orange County&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Orange County&quot;</span>),</span>
-<span id="cb43-37"><a href="#cb43-37" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;San Diego-Imperial&quot;</span> <span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;Imperial County&quot;</span>, <span class="st">&quot;San Diego County&quot;</span>)</span>
-<span id="cb43-38"><a href="#cb43-38" aria-hidden="true" tabindex="-1"></a>              </span>
-<span id="cb43-39"><a href="#cb43-39" aria-hidden="true" tabindex="-1"></a>                               ),</span>
-<span id="cb43-40"><a href="#cb43-40" aria-hidden="true" tabindex="-1"></a>         <span class="at">.after =</span> county_fips_code</span>
-<span id="cb43-41"><a href="#cb43-41" aria-hidden="true" tabindex="-1"></a>         )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>teacher_evals_clean <span class="sc">|&gt;</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(academic_degree, seniority, sex) <span class="sc">|&gt;</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_seniority =</span> <span class="fu">mean</span>(seniority),</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">min_seniority =</span> <span class="fu">min</span>(seniority),</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">max_seniority =</span> <span class="fu">max</span>(seniority),</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">unique_teachers =</span> <span class="fu">n_distinct</span>(teacher_id)</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><code>across()</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 3 Question 7</span></span>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 7 Question 1</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>teacher_evals_clean <span class="sc">|&gt;</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(course_id<span class="sc">:</span>sex, is.na)) <span class="sc">|&gt;</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(course_id, teacher_id, percent_failed_cur)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>fish <span class="sc">|&gt;</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(trip<span class="sc">:</span>species, </span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>                   <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)), </span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.names =</span> <span class="st">&quot;missing_{.col}&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><code>map()</code> functions</li>
@@ -4298,7 +4282,7 @@ vertical-align: -.125em;
 <span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>PE-3:I can use iteration to reduce repetition in my code.</strong></p>
+<p><strong>PE-3: I can use iteration to reduce repetition in my code.</strong></p>
 <ul>
 <li><code>across()</code></li>
 </ul>
@@ -4306,7 +4290,7 @@ vertical-align: -.125em;
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 3 Question 7</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>teacher_evals_clean <span class="sc">|&gt;</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(course_id<span class="sc">:</span>sex, is.na)) <span class="sc">|&gt;</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">if_any</span>(<span class="at">.cols =</span> <span class="fu">everything</span>(), <span class="at">.fns =</span> is.na)) <span class="sc">|&gt;</span></span>
 <span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(course_id, teacher_id, percent_failed_cur)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
@@ -4335,7 +4319,7 @@ vertical-align: -.125em;
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 3 Question 7</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>teacher_evals_clean <span class="sc">|&gt;</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(course_id<span class="sc">:</span>sex, is.na)) <span class="sc">|&gt;</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">if_any</span>(<span class="at">.cols =</span> <span class="fu">everything</span>(), <span class="at">.fns =</span> is.na)) <span class="sc">|&gt;</span></span>
 <span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(course_id, teacher_id, percent_failed_cur)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
