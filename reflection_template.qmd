@@ -678,7 +678,15 @@ teacher_evals_clean |>
 ```{r}
 #| label: r-3-example
 
-# Will implement in Final
+# Lab 3 Question 11
+# Using range() within filter allows to filter for max and min averages simultanously and eliminating five lines of code
+
+stu_fail <- teacher_evals_clean |>
+  
+  group_by(teacher_id) |>
+  filter(seniority == 1) |>
+  summarise(avg_fail = mean(percent_failed_cur), .groups = "drop") |>
+  filter(avg_fail %in% range(avg_fail))
 
 ```
 
@@ -687,7 +695,17 @@ teacher_evals_clean |>
 ```{r}
 #| label: r-3-function-stops
 
-# Will implement in Final
+# Lab 7 Question 4
+
+rescale_01 <- function(x) {
+  
+  stopifnot(is.numeric(x), length(x) > 1)
+  
+  minimum <- min(x, na.rm = TRUE)
+  maximum <- max(x, na.rm = TRUE)
+  (x - minimum) / (maximum - minimum)
+  
+}
 
 ```
 
@@ -984,20 +1002,21 @@ ggplot(data = surveys,
                      color = genus)) +
   geom_boxplot() +
   scale_color_manual(values = cdPalette_grey) + 
-  annotate("text", y = 14, x = 250, label = "Onychomys") +
-  annotate("text", y = 13, x = 250, label = "Dipodomys") +
-  annotate("text", y = 12, x = 250, label = "Chaetodipus") +
-  annotate("text", y = 11, x = 250, label = "Dipodomys") +
-  annotate("text", y = 10, x = 250, label = "Dipodomys") +
-  annotate("text", y = 9, x = 250, label = "Reithrodontomys") +
-  annotate("text", y = 8, x = 250, label = "Peromyscus") +
-  annotate("text", y = 7, x = 250, label = "Onychomys") +
-  annotate("text", y = 6, x = 250, label = "Sigmodon") +
-  annotate("text", y = 5, x = 250, label = "Reithrodontomys") +
-  annotate("text", y = 4, x = 250, label = "Perognathus") +
-  annotate("text", y = 3, x = 250, label = "Peromyscus") +
-  annotate("text", y = 2, x = 250, label = "Chaetodipus") +
-  annotate("text", y = 1, x = 250, label = "Neotoma") +
+  annotate('text', y = 1:14, x = 250, label = c('Neotoma',
+                                                'Chaetodipus',
+                                                'Peromyscus',
+                                                'Perognathus',
+                                                'Reithrodontomys',
+                                                'Sigmodon',
+                                                'Onychomys',
+                                                'Peromyscus',
+                                                'Reithrodontomys',
+                                                'Dipodomys',
+                                                'Dipodomys',
+                                                'Chaetodipus',
+                                                'Dipodomys',
+                                                'Onychomys')) +
+
   theme(legend.position = "none") +
   labs(x = "Weight (g)",
        y = "",
