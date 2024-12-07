@@ -611,7 +611,11 @@ ca_childcare |>
 
 **R-1: I can create professional looking, reproducible analyses using RStudio projects, Quarto documents, and the here package.**
 
-I've done this in the following provided assignments: Lab 2, Challenge 2, Lab
+I've created professional looking, reproducible analyses using RStudio projects, Quarto documents, and the here package in the following assignments:
+
+. Labs 1 - 5 and Challenges 1 - 3
+
+. Specifically labs 2 and 5
 
 **R-2: I can write well documented and tidy code.**
 
@@ -851,29 +855,53 @@ ggplot(data = surveys,
 ```{r}
 #| label: dvs-2-2
 
-# Lab 9 Question 2
+# Lab 4 Question 6
 
-babyData <- enframe(results, 
-        name = 'simulation_number', 
-        value = 'ncorrect')
-
-
-babyData |>
-  count(ncorrect) |>
-  mutate(proportions = n / sum(n)) |> 
-  select(ncorrect, proportions) |>
-  pivot_wider(names_from = ncorrect,
-              values_from = proportions) |>
-  gt() |>
+ca_childcare |>
   
-  tab_header(title = 'Proportion of Simulations for Correctly Returned Babies') |>
-  cols_label(`0` = '0 Babies',
-             `1` = '1 Baby',
-             `2` = '2 Babies',
-             `4` = '4 Babies') |>
- 
-   tab_options(table.font.size = 12,
-               table.font.names = 'Georgia')
+  pivot_longer(mc_infant:mc_preschool,
+               names_to = "Child Category",
+               values_to = "Median Price") |>
+  
+  select(Region, 
+         study_year, 
+         `Child Category`, 
+         `Median Price`) |>
+  
+  mutate(`Child Category` = fct_recode(.f = `Child Category`,
+                    "Infant" = "mc_infant",
+                    "Toddler" = "mc_toddler",
+                    "Preschool" = "mc_preschool"),
+         
+         `Child Category` = fct_relevel(`Child Category`,
+                                        "Infant", 
+                                        "Toddler", 
+                                        "Preschool")
+         ) |>
+  
+  ggplot(aes(x = study_year, 
+             y = `Median Price`, 
+             color = fct_reorder2(.f = Region, 
+                                  .x = study_year, 
+                                  .y = `Median Price`)
+             )
+         ) +
+  
+  geom_point() +
+  geom_smooth(aes(colour = factor(Region), 
+                  method = "loess")) +
+  
+  facet_wrap(~ `Child Category`) +
+  scale_x_continuous(breaks = seq(2008, 2018, by = 2)) +
+  scale_y_continuous(breaks = seq(100, 700, by = 100), 
+                     limits = c(100, 500)) +
+  labs(x = "Study Year",
+       y = "",
+       title = "Weekly Median Price for Center-Based Childcare ($)",
+       color = "California Region") +
+  scale_color_manual(values = colorRampPalette(brewer.pal(8, 'Accent'))(10)) +
+  theme(aspect.ratio = 1) +
+  theme_bw() 
 
 ```
 
@@ -1507,7 +1535,19 @@ results <- map_int(.x = 1:10000,
 ```{r}
 #| label: dsm-1-2
 
-# Will implement in Final
+# Lab 8 Question 4
+
+height <- function(obs = 200, mean, sd) {
+  
+  tibble(person = 1:obs, 
+         ht = rnorm(n = obs, mean = mean, sd = sd)
+  )
+  
+}
+
+
+crossing(mean_ht = seq(from = 60, to = 78, by = 6),
+         std_ht = c(3, 6))
 
 ```
 
@@ -1544,7 +1584,29 @@ summary(reg_mod1)
 
 <!-- For the revisions included in your Portfolio, to help me understand the nature of your revisions, please denote somehow the feedback I provided you (e.g., boldface, italics, colored text) before your revisions. -->
 
-Throughout the duration of this course, I was able to successfully revise my thinking by transitioning from my perspective of programming in SQL and Python to tidy and efficient programming in R. I recognized my habitual functional programming style echoing in certain areas of R, specifically throughout iterations and my tendencies of using loops. This was heavily illustrated in week 8 of the course when inquiring about functions and leveraging functions in place of while and for loops. Within lab 8 question 4 highlighted below, I was able to leverage the map_int() function instead of loops to sum all instances of empty values across the \`fish\` data set. This enabled me to revise my traditional perception of functional programming and incorporate a tidy and efficient R code.
+Throughout the course, I successfully revise my thinking by reducing redundancies to ensure an efficient programming style. Through submitting every revision and analyzing the feedback by Dr. Theobold, I was able to embark on my critical thinking and research to determine different functions that can be implemented to tackle an objective from a variety of angles. In the code chunk below, I had originally developed two pipe operators - one to retrieve the maximum average student course failures and one for the minimum average student course failures in lab 3 question 11. However, I reduced 5 lines of code by applying the range() function that simultaneously calculates the max and min of numeric vectors to store both the minimum and maximum proportions of average student failures in the stu_fail object.
+
+```{r}
+
+# Lab 3 Question 11
+
+
+stu_fail <- teacher_evals_clean |>
+  
+  group_by(teacher_id) |>
+  filter(seniority == 1) |>
+  summarise(avg_fail = mean(percent_failed_cur), .groups = "drop") |>
+  filter(avg_fail %in% range(avg_fail))
+
+```
+
+This discovery immensely shifted my perception when developing code. I first learned to establish the "foundations" of the objective I hope to achieve - something that runs. Then incorporating and replacing functions with concise and efficient functions such as range(), count(), slice_min(), slice_max(), etc to establish a tidy and efficient code.
+
+## Extending My Thinking
+
+<!-- How did you extended your thinking throughout the course? How did you extend your thinking on the code examples you have provided in your portfolio? -->
+
+Throughout the duration of this course, I was able to successfully extend my thinking by transitioning from my perspective of programming in SQL and Python to tidy and efficient programming in R. I recognized my habitual functional programming style echoing in certain areas of R, specifically throughout iterations and my tendencies of using loops. This was heavily illustrated in week 8 of the course when inquiring about functions and leveraging functions in place of while and for loops. Within lab 8 question 4 highlighted below, I was able to leverage the map_int() function instead of loops to sum all instances of empty values across the \`fish\` data set. This enabled me to revise my traditional perception of functional programming and incorporate a tidy and efficient R code.
 
 ```{r}
 
@@ -1561,25 +1623,7 @@ fish |>
 
 ```
 
-## Extending My Thinking
-
-<!-- How did you extended your thinking throughout the course? How did you extend your thinking on the code examples you have provided in your portfolio? -->
-
-Throughout the course, I successfully extended my thinking my reducing redundancies to ensure an efficient programming style. This allowed me to inboke my ciritcal thinking and research to determine different vectorized functions that can be implemented to tackle an objective from a variety of angles. In the code chunk below, I had originally developed two pipe operators - one to retrieve the maximum average student course failures and one for the minimum average student course failures in lab 3 question 11. However, I reduced 5 lines of code by applying the range() function that simultanously calculates the max and min of numeric vectors to store both the minimum and maximum proportions of avgerage student failures in the stu_fail object.
-
-```{r}
-
-# Lab 3 Question 11
-
-
-stu_fail <- teacher_evals_clean |>
-  
-  group_by(teacher_id) |>
-  filter(seniority == 1) |>
-  summarise(avg_fail = mean(percent_failed_cur), .groups = "drop") |>
-  filter(avg_fail %in% range(avg_fail))
-
-```
+## 
 
 ## Peer Support & Collaboration
 
@@ -1587,7 +1631,7 @@ stu_fail <- teacher_evals_clean |>
 
 <!-- Include a description of how you grew as a collaborator through the weekly pair programming activities.   -->
 
-Within Lab 7 Peer Review, I provided the following feedback that I believe to be substantive and informatiev, both for me and my peer:
+Within Lab 7 Peer Review, I provided the following feedback that I believe to be substantive and informative, both for me and my peer:
 
 ###### ***Tidy Code***
 
@@ -1597,4 +1641,4 @@ Within Lab 7 Peer Review, I provided the following feedback that I believe to be
 
 ###### ***I don’t seem to see any redundancy in functions (no repeats) which is awesome! I also don’t seem to find creating multiple variables when not necessary which is great! Within number 4, I might recommend using the stopifnot() function so you can eliminate 4 lines for an efficient code chunk. Overall, awesome job!***
 
-As a collaborator on weekly practice activities, I believe I have gained the confidence to share my perspective without the scare of being perceived as "uneducated" on the subject matter. Additionally, I further learned to trust and my peers' problem-solving style that may differ from my own which equipped me with unparalleled knowledge and perspective of pursuing solutions in variety of ways.
+As a collaborator on weekly practice activities, I believe I have gained the confidence to share my perspective without the scare of being perceived as "uneducated" on the subject matter. Additionally, I further learned to trust my peers' problem-solving style that may differ from my own which equipped me with unparalleled knowledge and perspective of pursuing solutions in variety of ways.

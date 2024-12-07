@@ -3637,7 +3637,9 @@ vertical-align: -.125em;
 <section id="reproducibility" class="level2">
 <h2 class="anchored" data-anchor-id="reproducibility">Reproducibility</h2>
 <p><strong>R-1: I can create professional looking, reproducible analyses using RStudio projects, Quarto documents, and the here package.</strong></p>
-<p>I’ve done this in the following provided assignments: Lab 2, Challenge 2, Lab</p>
+<p>I’ve created professional looking, reproducible analyses using RStudio projects, Quarto documents, and the here package in the following assignments:</p>
+<p>. Labs 1 - 5 and Challenges 1 - 3</p>
+<p>. Specifically labs 2 and 5</p>
 <p><strong>R-2: I can write well documented and tidy code.</strong></p>
 <ul>
 <li>Example of <strong>ggplot2</strong> plotting</li>
@@ -3843,29 +3845,53 @@ vertical-align: -.125em;
 <li>I can modify the text in my plot to be more readable</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 9 Question 2</span></span>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 4 Question 6</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>babyData <span class="ot">&lt;-</span> <span class="fu">enframe</span>(results, </span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">&#39;simulation_number&#39;</span>, </span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">value =</span> <span class="st">&#39;ncorrect&#39;</span>)</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>babyData <span class="sc">|&gt;</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(ncorrect) <span class="sc">|&gt;</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportions =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">|&gt;</span> </span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ncorrect, proportions) <span class="sc">|&gt;</span></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> ncorrect,</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> proportions) <span class="sc">|&gt;</span></span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&#39;Proportion of Simulations for Correctly Returned Babies&#39;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(<span class="st">`</span><span class="at">0</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&#39;0 Babies&#39;</span>,</span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>             <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&#39;1 Baby&#39;</span>,</span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>             <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&#39;2 Babies&#39;</span>,</span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>             <span class="st">`</span><span class="at">4</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&#39;4 Babies&#39;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>   <span class="fu">tab_options</span>(<span class="at">table.font.size =</span> <span class="dv">12</span>,</span>
-<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>               <span class="at">table.font.names =</span> <span class="st">&#39;Georgia&#39;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>ca_childcare <span class="sc">|&gt;</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(mc_infant<span class="sc">:</span>mc_preschool,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;Child Category&quot;</span>,</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;Median Price&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Region, </span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>         study_year, </span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Child Category</span><span class="st">`</span>, </span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Median Price</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Child Category</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">fct_recode</span>(<span class="at">.f =</span> <span class="st">`</span><span class="at">Child Category</span><span class="st">`</span>,</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;Infant&quot;</span> <span class="ot">=</span> <span class="st">&quot;mc_infant&quot;</span>,</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;Toddler&quot;</span> <span class="ot">=</span> <span class="st">&quot;mc_toddler&quot;</span>,</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;Preschool&quot;</span> <span class="ot">=</span> <span class="st">&quot;mc_preschool&quot;</span>),</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Child Category</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">fct_relevel</span>(<span class="st">`</span><span class="at">Child Category</span><span class="st">`</span>,</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">&quot;Infant&quot;</span>, </span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">&quot;Toddler&quot;</span>, </span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">&quot;Preschool&quot;</span>)</span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">|&gt;</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> study_year, </span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> <span class="st">`</span><span class="at">Median Price</span><span class="st">`</span>, </span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="fu">fct_reorder2</span>(<span class="at">.f =</span> Region, </span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">.x =</span> study_year, </span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">.y =</span> <span class="st">`</span><span class="at">Median Price</span><span class="st">`</span>)</span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(Region), </span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">&quot;loess&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">`</span><span class="at">Child Category</span><span class="st">`</span>) <span class="sc">+</span></span>
+<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">2008</span>, <span class="dv">2018</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">100</span>, <span class="dv">700</span>, <span class="at">by =</span> <span class="dv">100</span>), </span>
+<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">500</span>)) <span class="sc">+</span></span>
+<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Study Year&quot;</span>,</span>
+<span id="cb30-42"><a href="#cb30-42" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb30-43"><a href="#cb30-43" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Weekly Median Price for Center-Based Childcare ($)&quot;</span>,</span>
+<span id="cb30-44"><a href="#cb30-44" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;California Region&quot;</span>) <span class="sc">+</span></span>
+<span id="cb30-45"><a href="#cb30-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">colorRampPalette</span>(<span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&#39;Accent&#39;</span>))(<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb30-46"><a href="#cb30-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb30-47"><a href="#cb30-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>I can reorder my legend to align with the colors in my plot</li>
@@ -4419,7 +4445,19 @@ vertical-align: -.125em;
 <li>Example 2</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Will implement in Final</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 8 Question 4</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">obs =</span> <span class="dv">200</span>, mean, sd) {</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">person =</span> <span class="dv">1</span><span class="sc">:</span>obs, </span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">ht =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> obs, <span class="at">mean =</span> mean, <span class="at">sd =</span> sd)</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a><span class="fu">crossing</span>(<span class="at">mean_ht =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">60</span>, <span class="at">to =</span> <span class="dv">78</span>, <span class="at">by =</span> <span class="dv">6</span>),</span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">std_ht =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>DSSM-2: I can conduct common statistical analyses in R.</strong></p>
 <ul>
@@ -4446,41 +4484,45 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="revising-my-thinking">Revising My Thinking</h2>
 <!-- How did you revise your thinking throughout the course? How did you revise your thinking on the code examples you have provided in your portfolio? -->
 <!-- For the revisions included in your Portfolio, to help me understand the nature of your revisions, please denote somehow the feedback I provided you (e.g., boldface, italics, colored text) before your revisions. -->
-<p>Throughout the duration of this course, I was able to successfully revise my thinking by transitioning from my perspective of programming in SQL and Python to tidy and efficient programming in R. I recognized my habitual functional programming style echoing in certain areas of R, specifically throughout iterations and my tendencies of using loops. This was heavily illustrated in week 8 of the course when inquiring about functions and leveraging functions in place of while and for loops. Within lab 8 question 4 highlighted below, I was able to leverage the map_int() function instead of loops to sum all instances of empty values across the `fish` data set. This enabled me to revise my traditional perception of functional programming and incorporate a tidy and efficient R code.</p>
+<p>Throughout the course, I successfully revise my thinking by reducing redundancies to ensure an efficient programming style. Through submitting every revision and analyzing the feedback by Dr. Theobold, I was able to embark on my critical thinking and research to determine different functions that can be implemented to tackle an objective from a variety of angles. In the code chunk below, I had originally developed two pipe operators - one to retrieve the maximum average student course failures and one for the minimum average student course failures in lab 3 question 11. However, I reduced 5 lines of code by applying the range() function that simultaneously calculates the max and min of numeric vectors to store both the minimum and maximum proportions of average student failures in the stu_fail object.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 8 Question 4</span></span>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 3 Question 11</span></span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>fish <span class="sc">|&gt;</span></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_int</span>(<span class="at">.f =</span> <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.x))) <span class="sc">|&gt;</span></span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">&#39;html&#39;</span>,</span>
-<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&#39;Missing Values in Aggregate&#39;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&#39;condensed&#39;</span>, </span>
-<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">&#39;hover&#39;</span>, </span>
-<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">&#39;striped&#39;</span>)</span>
-<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>stu_fail <span class="ot">&lt;-</span> teacher_evals_clean <span class="sc">|&gt;</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(teacher_id) <span class="sc">|&gt;</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(seniority <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_fail =</span> <span class="fu">mean</span>(percent_failed_cur), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(avg_fail <span class="sc">%in%</span> <span class="fu">range</span>(avg_fail))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>This discovery immensely shifted my perception when developing code. I first learned to establish the “foundations” of the objective I hope to achieve - something that runs. Then incorporating and replacing functions with concise and efficient functions such as range(), count(), slice_min(), slice_max(), etc to establish a tidy and efficient code.</p>
 </section>
 <section id="extending-my-thinking" class="level2">
 <h2 class="anchored" data-anchor-id="extending-my-thinking">Extending My Thinking</h2>
 <!-- How did you extended your thinking throughout the course? How did you extend your thinking on the code examples you have provided in your portfolio? -->
-<p>Throughout the course, I successfully extended my thinking my reducing redundancies to ensure an efficient programming style. This allowed me to inboke my ciritcal thinking and research to determine different vectorized functions that can be implemented to tackle an objective from a variety of angles. In the code chunk below, I had originally developed two pipe operators - one to retrieve the maximum average student course failures and one for the minimum average student course failures in lab 3 question 11. However, I reduced 5 lines of code by applying the range() function that simultanously calculates the max and min of numeric vectors to store both the minimum and maximum proportions of avgerage student failures in the stu_fail object.</p>
+<p>Throughout the duration of this course, I was able to successfully extend my thinking by transitioning from my perspective of programming in SQL and Python to tidy and efficient programming in R. I recognized my habitual functional programming style echoing in certain areas of R, specifically throughout iterations and my tendencies of using loops. This was heavily illustrated in week 8 of the course when inquiring about functions and leveraging functions in place of while and for loops. Within lab 8 question 4 highlighted below, I was able to leverage the map_int() function instead of loops to sum all instances of empty values across the `fish` data set. This enabled me to revise my traditional perception of functional programming and incorporate a tidy and efficient R code.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 3 Question 11</span></span>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lab 8 Question 4</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>stu_fail <span class="ot">&lt;-</span> teacher_evals_clean <span class="sc">|&gt;</span></span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(teacher_id) <span class="sc">|&gt;</span></span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(seniority <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_fail =</span> <span class="fu">mean</span>(percent_failed_cur), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(avg_fail <span class="sc">%in%</span> <span class="fu">range</span>(avg_fail))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>fish <span class="sc">|&gt;</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_int</span>(<span class="at">.f =</span> <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.x))) <span class="sc">|&gt;</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">&#39;html&#39;</span>,</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&#39;Missing Values in Aggregate&#39;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&#39;condensed&#39;</span>, </span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">&#39;hover&#39;</span>, </span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">&#39;striped&#39;</span>)</span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
 </section>
 <section id="peer-support-collaboration" class="level2">
 <h2 class="anchored" data-anchor-id="peer-support-collaboration">Peer Support &amp; Collaboration</h2>
 <!-- Include an image or a description of feedback you gave that you are proud of (either in a peer review or in Discord). -->
 <!-- Include a description of how you grew as a collaborator through the weekly pair programming activities.   -->
-<p>Within Lab 7 Peer Review, I provided the following feedback that I believe to be substantive and informatiev, both for me and my peer:</p>
+<p>Within Lab 7 Peer Review, I provided the following feedback that I believe to be substantive and informative, both for me and my peer:</p>
 <section id="tidy-code" class="level6">
 <h6 class="anchored" data-anchor-id="tidy-code"><strong><em>Tidy Code</em></strong></h6>
 </section>
@@ -4492,7 +4534,7 @@ vertical-align: -.125em;
 </section>
 <section id="i-dont-seem-to-see-any-redundancy-in-functions-no-repeats-which-is-awesome-i-also-dont-seem-to-find-creating-multiple-variables-when-not-necessary-which-is-great-within-number-4-i-might-recommend-using-the-stopifnot-function-so-you-can-eliminate-4-lines-for-an-efficient-code-chunk.-overall-awesome-job" class="level6">
 <h6 class="anchored" data-anchor-id="i-dont-seem-to-see-any-redundancy-in-functions-no-repeats-which-is-awesome-i-also-dont-seem-to-find-creating-multiple-variables-when-not-necessary-which-is-great-within-number-4-i-might-recommend-using-the-stopifnot-function-so-you-can-eliminate-4-lines-for-an-efficient-code-chunk.-overall-awesome-job"><strong><em>I don’t seem to see any redundancy in functions (no repeats) which is awesome! I also don’t seem to find creating multiple variables when not necessary which is great! Within number 4, I might recommend using the stopifnot() function so you can eliminate 4 lines for an efficient code chunk. Overall, awesome job!</em></strong></h6>
-<p>As a collaborator on weekly practice activities, I believe I have gained the confidence to share my perspective without the scare of being perceived as “uneducated” on the subject matter. Additionally, I further learned to trust and my peers’ problem-solving style that may differ from my own which equipped me with unparalleled knowledge and perspective of pursuing solutions in variety of ways.</p>
+<p>As a collaborator on weekly practice activities, I believe I have gained the confidence to share my perspective without the scare of being perceived as “uneducated” on the subject matter. Additionally, I further learned to trust my peers’ problem-solving style that may differ from my own which equipped me with unparalleled knowledge and perspective of pursuing solutions in variety of ways.</p>
 </section>
 </section>
 
