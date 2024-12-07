@@ -6,16 +6,22 @@ editor: visual
 
 **Answer each of the following questions with *one sentence* including a brief explanation.**
 
-1. Finish the sentence with another student’s name: "If [Name of Student] doesn’t earn an A, then nobody should, because..." Explain your choice and your reasoning.
+1.  Finish the sentence with another student’s name:
 
+    If Kyle doesn’t earn an A, then nobody should, because through all my peer interactions, I believe he was able to deeply conceptualize the background of how a program runs and I learned a lot.
 
-2. What was the most difficult part of the class for you? List a general topic, a specific problem, a kind of work we did, etc. and explain why.
+2.  What was the most difficult part of the class for you? List a general topic, a specific problem, a kind of work we did, etc. and explain why.
 
+    The most difficult part of the course for me was applying creativity in my visualizations that I believe its perdominently attributed to my lack of understanding of packages and the attributes used to depict a desired outcome.
 
-3. What was the easiest part of the class for you? Explain why.
+3.  What was the easiest part of the class for you? Explain why.
 
+    Creating function due to my background in python which I find super satisfying.
 
-4. What part of the class surprised or interested you the most? Explain why.
+4.  What part of the class surprised or interested you the most? Explain why.
 
+    Learning about the stringr and lubridate packages because I never inquired so deeply about string editing which was super interesting.
 
-5. Give one piece of advice to a student just beginning a quarter of STAT 331 that will help them be successful in learning.
+5.  Give one piece of advice to a student just beginning a quarter of STAT 331 that will help them be successful in learning.
+
+    Be as versetile and open-minded as possible. There are so many avenues of solving the same problem which can be overwhelming but leverage bits and pieces of each option to develop the most efficient and tidy code.
