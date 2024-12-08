@@ -174,7 +174,57 @@ ca_childcare <- childcare_costs |>
 ```{r}
 #| label: wd-3-date
 
+# Lab 5
+# Finding the interview of initial suspect
 
+crime_scene_report |>
+  mutate(date = ymd(date)) |>
+  filter(date == '2018-01-15',
+         type == 'murder',
+         city == 'SQL City') |>
+  pull(description)
+
+
+witness1 <- person |>
+  filter(address_street_name == 'Northwestern Dr', 
+         address_number == max(address_number)) |>
+  left_join(interview, 
+             by = join_by(id == person_id)) |>
+  pull(transcript)|>
+  print()
+
+
+witness2 <- person |>
+  filter(address_street_name == 'Franklin Ave', 
+         str_detect(name, 'Annabel')) |>
+  left_join(interview, 
+             by = join_by(id == person_id)) |>
+  pull(transcript) |>
+  print()
+
+
+
+get_fit_now_check_in |>
+  
+  full_join(get_fit_now_member, 
+             by = join_by(membership_id == id)) |>
+  
+  inner_join(person, 
+             by = join_by(person_id == id,
+                          name == name)) |>
+  inner_join(interview,
+             by = join_by(person_id == person_id)) |>
+  
+  inner_join(drivers_license,
+             by = join_by(license_id == id)) |>
+
+
+  filter(membership_status == 'gold',
+         str_detect(membership_id, 
+                    '^48Z'),
+         str_detect(plate_number, 
+                    '.H42W')
+         ) 
 ```
 
 **WD-4: I can modify existing variables and create new variables in a dataframe for a *variety* of data types (e.g., numeric, integer, character, factor, date).**
@@ -527,7 +577,13 @@ person |>
 ```{r}
 #| label: wd-6-anti
 
-# Will implement in the Final
+# In Lab 5, anti_join() can be leveraged in validating our supect by: 
+
+interview |> 
+  anti_join(suspect,
+          by = join_by(person_id == id))
+
+# Since anti_join removes observations that are in both data set, our row number (4991) indicates that nothing has been removed and therefore no evidence of an interview with the suspect. 
 
 ```
 
@@ -1432,7 +1488,14 @@ map_chr(surveys, typeof) |>
 ```{r}
 #| label: pe-3-map-2
 
-# Will implement in Final
+# Lab 9 Question 6
+
+all_simulations <- grid |> 
+  mutate(simulated_means = pmap(.l = list(n = n, 
+                                          df = df), 
+                                .f = simulate_means)
+         ) |> 
+  unnest(simulate_means) 
 
 ```
 
@@ -1535,19 +1598,16 @@ results <- map_int(.x = 1:10000,
 ```{r}
 #| label: dsm-1-2
 
-# Lab 8 Question 4
+# Lab 9 Question 4
 
-height <- function(obs = 200, mean, sd) {
-  
-  tibble(person = 1:obs, 
-         ht = rnorm(n = obs, mean = mean, sd = sd)
-  )
-  
+simulate_means <- function(n, df){
+  map_dbl(.x = 1:n, 
+          .f = ~rchisq(n = 100, 
+                       df = df) %>% 
+            mean()
+          )
 }
 
-
-crossing(mean_ht = seq(from = 60, to = 78, by = 6),
-         std_ht = c(3, 6))
 
 ```
 

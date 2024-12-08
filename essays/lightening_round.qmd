@@ -1,5 +1,6 @@
 ---
 title: "Lightening Round Essays"
+author: "Amir Sepasian"
 format: html
 editor: visual
 ---

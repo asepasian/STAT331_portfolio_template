@@ -1,7 +1,14 @@
 ---
 title: "My Growth as a Data Scientist"
-format: html
+author: "Amir Sepasian"
+format: 
+  html: 
+    self-contained: true
+layout: margin-left
 editor: visual
+execute: 
+  eval: false
+  echo: true
 ---
 
 ***Describe how you have improved as a practitioner and student of data science this quarter through your work in the course.***
@@ -9,3 +16,115 @@ editor: visual
 -   Focus specifically on data science concepts and the skills we employed in learning them, not a laundry list of topics that you learned (those are in the syllabus, so I know them already).
 
 -   Focus on a small number of specific areas of growth for you that happened in STAT 331. Identify at least one artifact in your portfolio that illustrates each area of growth and explain how this artifact shows growth in the way you are describing.
+
+Throughout the quarter, I was truly able to excel as both a student and data scientist in R through learning and applying concepts by leveraging packages such as ggplot2, forcats, stringr, lubridate, and of course tidyverse. Concepts such as pipe line operators "\|\>" taught me the art of tidy format and maintaining overall aesthetics. Vectorized functions such as fct_reordeer(), mean(), sum(), ifelse(), etc encouraged me to apply an "efficient" strategy when developing code while reducing redundancy. Some artifacts of my portfolio, I believe, are highlighted in the code chunks below. These examples depict my efforts to eliminate redundancy, apply creativity, and maintain a tidy format. I reduced redundancy by calling single functions to conduct multiple tasks such as summarize() and range() in lab 3 questions 8 & 9. I applied creativity in labs 4 & 9 by utilizing unconventional colors in my visualizations and formulate simple tables for audience to read. I also maintained a tidy code by utilizing pipe operators such as "\|\>" and "+".
+
+```{r}
+#| label: r-2-3
+
+# Lab 3 Question 8
+
+teacher_evals_clean |>
+  group_by(academic_degree, seniority, sex) |>
+  summarise(avg_seniority = mean(seniority),
+            min_seniority = min(seniority),
+            max_seniority = max(seniority),
+            unique_teachers = n_distinct(teacher_id)
+            )
+
+```
+
+```{r}
+#| label: r-3-example
+
+# Lab 3 Question 11
+# Using range() within filter allows to filter for max and min averages simultanously and eliminating five lines of code
+
+stu_fail <- teacher_evals_clean |>
+  
+  group_by(teacher_id) |>
+  filter(seniority == 1) |>
+  summarise(avg_fail = mean(percent_failed_cur), .groups = "drop") |>
+  filter(avg_fail %in% range(avg_fail))
+```
+
+```{r}
+#| label: dvs-6-1
+
+# Lab 9 Question 2
+
+babyData <- enframe(results, 
+        name = 'simulation_number', 
+        value = 'ncorrect')
+
+
+babyData |>
+  count(ncorrect) |>
+  mutate(proportions = n / sum(n)) |> 
+  select(ncorrect, proportions) |>
+  pivot_wider(names_from = ncorrect,
+              values_from = proportions) |>
+  gt() |>
+  
+  tab_header(title = 'Proportion of Simulations for Correctly Returned Babies') |>
+  cols_label(`0` = '0 Babies',
+             `1` = '1 Baby',
+             `2` = '2 Babies',
+             `4` = '4 Babies') |>
+ 
+   tab_options(table.font.size = 12,
+               table.font.names = 'Georgia')
+```
+
+```{r}
+#| label: dvs-2-date
+
+# Lab 4 Question 6
+
+ca_childcare |>
+  
+  pivot_longer(mc_infant:mc_preschool,
+               names_to = "Child Category",
+               values_to = "Median Price") |>
+  
+  select(Region, 
+         study_year, 
+         `Child Category`, 
+         `Median Price`) |>
+  
+  mutate(`Child Category` = fct_recode(.f = `Child Category`,
+                    "Infant" = "mc_infant",
+                    "Toddler" = "mc_toddler",
+                    "Preschool" = "mc_preschool"),
+         
+         `Child Category` = fct_relevel(`Child Category`,
+                                        "Infant", 
+                                        "Toddler", 
+                                        "Preschool")
+         ) |>
+  
+  ggplot(aes(x = study_year, 
+             y = `Median Price`, 
+             color = fct_reorder2(.f = Region, 
+                                  .x = study_year, 
+                                  .y = `Median Price`)
+             )
+         ) +
+  
+  geom_point() +
+  geom_smooth(aes(colour = factor(Region), 
+                  method = "loess")) +
+  
+  facet_wrap(~ `Child Category`) +
+  scale_x_continuous(breaks = seq(2008, 2018, by = 2)) +
+  scale_y_continuous(breaks = seq(100, 700, by = 100), 
+                     limits = c(100, 500)) +
+  labs(x = "Study Year",
+       y = "",
+       title = "Weekly Median Price for Center-Based Childcare ($)",
+       color = "California Region") +
+  scale_color_manual(values = colorRampPalette(brewer.pal(8, 'Accent'))(10)) +
+  theme(aspect.ratio = 1) +
+  theme_bw() 
+
+```
